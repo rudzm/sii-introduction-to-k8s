@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-first-pod
+  labels:
+    app: my-first-app
+spec:
+  containers:
+    - name: my-first-pod-container
+      image: rudzmic1/firstapp:1.0
+      resources:
+      ports:
+        - containerPort: 5000
+
