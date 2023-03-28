@@ -19,10 +19,3 @@ spec:
             name: shop-service
             port: 
               number: 80
-      - pathType: Prefix
-        path: "/beer"
-        backend:
-          service:
-            name: beer-service
-            port:
-              number: 80
