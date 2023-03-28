@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: shop-ingress
+  labels:
+    name: myingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: "34.28.9.251.nip.io"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: shop-service
+            port: 
+              number: 80
+      - pathType: Prefix
+        path: "/beer"
+        backend:
+          service:
+            name: beer-service
+            port:
+              number: 80

@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: init-conainer-pod
+spec:
+  initContainers:
+    - name: init-file-container
+      image: alpine:latest
+      args:
+        - /bin/sh
+        - -c
+        - echo "This is Init Container job" >> /opt/init/config.ini && sleep 60
+      volumeMounts:
+        - mountPath: /opt/init
+          name: config
+  containers:
+    - name: config-reader
+      image: alpine:latest
+      resources:
+        limits:
+          memory: "128Mi"
+          cpu: "500m"
+      args:
+        - /bin/sh
+        - -c
+        - >
+          while true;
+          do
+            echo "Load config.ini file";
+            cat /opt/config/config.ini;
+          done
+      volumeMounts:
+        - mountPath: /opt/config
+          name: config
+  volumes:
+    - name: config
+      emptyDir: {}
+

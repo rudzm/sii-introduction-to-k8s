@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name:  firstapp-deployment
+  name:  beer-deploment
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
-      app: firstapp
+      app: beerapp
   template:
     metadata:
-      name: firstapp
+      name: beerapp
       labels:
-        app: firstapp
+        app: beerapp
     spec:
       containers:
-        - name: firstapp
-          image: rudzmic1/firstapp:1.0
+        - name: beerapp
+          image: rudzmic1/beerapp:1.0
           resources:
             requests:
               cpu: "100m"
@@ -25,3 +25,15 @@ spec:
               memory: "256Mi"
           ports:
             - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: beer-service
+spec:
+  type: ClusterIP
+  selector:
+    app: beerapp
+  ports:
+  - port: 80
+    targetPort: 5000

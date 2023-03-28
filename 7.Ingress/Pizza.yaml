@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name:  firstapp-deployment
+  name:  pizza-deploment
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
-      app: firstapp
+      app: pizzaapp
   template:
     metadata:
-      name: firstapp
+      name: pizzaapp
       labels:
-        app: firstapp
+        app: pizzaapp
     spec:
       containers:
-        - name: firstapp
-          image: rudzmic1/firstapp:1.0
+        - name: pizzaapp
+          image: rudzmic1/pizzaapp:1.0
           resources:
             requests:
               cpu: "100m"
@@ -25,3 +25,15 @@ spec:
               memory: "256Mi"
           ports:
             - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pizza-service
+spec:
+  type: ClusterIP
+  selector:
+    app: pizzaapp
+  ports:
+  - port: 80
+    targetPort: 5000
