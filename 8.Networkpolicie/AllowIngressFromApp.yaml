@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-dbapp-to-mysql-db
+  namespace: db
+spec:
+  podSelector:
+    matchLabels:
+      app: mysql-db
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: dbapp
+      namespaceSelector:
+        matchLabels:
+          name: app
+    ports:
+    - port: 3306
+      protocol: TCP
