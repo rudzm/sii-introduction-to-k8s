@@ -32,6 +32,17 @@ spec:
               memory: "256Mi"
           ports:
             - containerPort: 5000
+          env:
+            - name: MYSQL_HOST
+              value: DO_UZUPEŁNIENIA
+            - name: MYSQL_PORT
+              value: 3306
+            - name: MYSQL_USER
+              value: appuser
+            - name: MYSQL_PASSWORD
+              value: www123
+            - name: MYSQL_DB
+              value: appdb
 ---
 apiVersion: v1
 kind: Service
