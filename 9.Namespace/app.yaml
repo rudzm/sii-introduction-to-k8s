@@ -3,6 +3,8 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: app
+  labels:
+    name: app
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -36,7 +38,7 @@ spec:
             - name: MYSQL_HOST
               value: DO_UZUPEŁNIENIA
             - name: MYSQL_PORT
-              value: 3306
+              value: "3306"
             - name: MYSQL_USER
               value: appuser
             - name: MYSQL_PASSWORD
